@@ -1,0 +1,257 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class CompraPasajes extends JFrame {
+    
+    private JTextField txtNombre;
+    private JTextField txtDocumento;
+    private JTextField txtFechaViaje;
+    
+    private JCheckBox chkAudifonos;
+    private JCheckBox chkManta;
+    private JCheckBox chkRevistas;
+    
+    private JRadioButton rbPrimerPiso;
+    private JRadioButton rbSegundoPiso;
+    private ButtonGroup grupoPiso;
+    
+    private JComboBox<String> cboOrigen;
+    private JComboBox<String> cboDestino;
+    
+    private JList<String> listaCalidad;
+    
+    private JButton btnConfirmar;
+    private JButton btnReiniciar;
+    
+    public CompraPasajes() {
+        setTitle("Sistema de Compra de Pasajes - TransBus Express");
+        setSize(500, 650);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(null);
+        
+        inicializarComponentes();
+    }
+    
+    private void inicializarComponentes() {
+        
+        JLabel lblTitulo1 = new JLabel("DATOS DEL PASAJERO");
+        lblTitulo1.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo1.setBounds(20, 10, 300, 25);
+        add(lblTitulo1);
+        
+        JLabel lblNombre = new JLabel("Nombre completo:");
+        lblNombre.setBounds(20, 40, 150, 25);
+        add(lblNombre);
+        
+        txtNombre = new JTextField();
+        txtNombre.setBounds(180, 40, 280, 25);
+        add(txtNombre);
+        
+        JLabel lblDocumento = new JLabel("Documento de Identidad:");
+        lblDocumento.setBounds(20, 70, 150, 25);
+        add(lblDocumento);
+        
+        txtDocumento = new JTextField();
+        txtDocumento.setBounds(180, 70, 280, 25);
+        add(txtDocumento);
+        
+        JLabel lblFecha = new JLabel("Fecha de Viaje:");
+        lblFecha.setBounds(20, 100, 150, 25);
+        add(lblFecha);
+        
+        txtFechaViaje = new JTextField();
+        txtFechaViaje.setBounds(180, 100, 280, 25);
+        txtFechaViaje.setText("DD/MM/AAAA");
+        add(txtFechaViaje);
+        
+        JLabel lblTitulo2 = new JLabel("SERVICIOS OPCIONALES");
+        lblTitulo2.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo2.setBounds(20, 140, 300, 25);
+        add(lblTitulo2);
+        
+        chkAudifonos = new JCheckBox("Audifonos");
+        chkAudifonos.setBounds(20, 170, 150, 25);
+        add(chkAudifonos);
+        
+        chkManta = new JCheckBox("Manta");
+        chkManta.setBounds(180, 170, 150, 25);
+        add(chkManta);
+        
+        chkRevistas = new JCheckBox("Revistas");
+        chkRevistas.setBounds(340, 170, 150, 25);
+        add(chkRevistas);
+        
+        JLabel lblTitulo3 = new JLabel("UBICACION EN EL BUS");
+        lblTitulo3.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo3.setBounds(20, 210, 300, 25);
+        add(lblTitulo3);
+        
+        rbPrimerPiso = new JRadioButton("Primer Piso");
+        rbPrimerPiso.setBounds(20, 240, 150, 25);
+        add(rbPrimerPiso);
+        
+        rbSegundoPiso = new JRadioButton("Segundo Piso");
+        rbSegundoPiso.setBounds(180, 240, 150, 25);
+        add(rbSegundoPiso);
+        
+        grupoPiso = new ButtonGroup();
+        grupoPiso.add(rbPrimerPiso);
+        grupoPiso.add(rbSegundoPiso);
+        
+        JLabel lblTitulo4 = new JLabel("RUTA DEL VIAJE");
+        lblTitulo4.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo4.setBounds(20, 280, 300, 25);
+        add(lblTitulo4);
+        
+        JLabel lblOrigen = new JLabel("Ciudad de Origen:");
+        lblOrigen.setBounds(20, 310, 150, 25);
+        add(lblOrigen);
+        
+        String[] ciudades = {"Seleccione...", "Lima", "Arequipa", "Cusco", "Trujillo", "Chiclayo", "Piura"};
+        cboOrigen = new JComboBox<>(ciudades);
+        cboOrigen.setBounds(180, 310, 280, 25);
+        add(cboOrigen);
+        
+        JLabel lblDestino = new JLabel("Ciudad de Destino:");
+        lblDestino.setBounds(20, 340, 150, 25);
+        add(lblDestino);
+        
+        cboDestino = new JComboBox<>(ciudades);
+        cboDestino.setBounds(180, 340, 280, 25);
+        add(cboDestino);
+        
+        JLabel lblTitulo5 = new JLabel("CALIDAD DE SERVICIO");
+        lblTitulo5.setFont(new Font("Arial", Font.BOLD, 14));
+        lblTitulo5.setBounds(20, 380, 300, 25);
+        add(lblTitulo5);
+        
+        String[] calidades = {"Economico - $50", "Standard - $75", "VIP - $120"};
+        listaCalidad = new JList<>(calidades);
+        listaCalidad.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listaCalidad.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        
+        JScrollPane scrollCalidad = new JScrollPane(listaCalidad);
+        scrollCalidad.setBounds(20, 410, 440, 80);
+        add(scrollCalidad);
+        
+        btnConfirmar = new JButton("Confirmar Compra");
+        btnConfirmar.setBounds(20, 520, 200, 40);
+        btnConfirmar.setBackground(new Color(46, 125, 50));
+        btnConfirmar.setForeground(Color.WHITE);
+        btnConfirmar.setFont(new Font("Arial", Font.BOLD, 12));
+        add(btnConfirmar);
+        
+        btnReiniciar = new JButton("Reiniciar");
+        btnReiniciar.setBounds(260, 520, 200, 40);
+        btnReiniciar.setBackground(new Color(211, 47, 47));
+        btnReiniciar.setForeground(Color.WHITE);
+        btnReiniciar.setFont(new Font("Arial", Font.BOLD, 12));
+        add(btnReiniciar);
+        
+        btnConfirmar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mostrarResumen();
+            }
+        });
+        
+        btnReiniciar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                reiniciarFormulario();
+            }
+        });
+    }
+    
+    private void mostrarResumen() {
+        if (txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese su nombre", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (txtDocumento.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese su documento", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (cboOrigen.getSelectedIndex() == 0 || cboDestino.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione origen y destino", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        StringBuilder resumen = new StringBuilder();
+        resumen.append("========== RESUMEN DE COMPRA ==========\n\n");
+        
+        resumen.append("DATOS DEL PASAJERO:\n");
+        resumen.append("Nombre: ").append(txtNombre.getText()).append("\n");
+        resumen.append("Documento: ").append(txtDocumento.getText()).append("\n");
+        resumen.append("Fecha de Viaje: ").append(txtFechaViaje.getText()).append("\n\n");
+        
+        resumen.append("SERVICIOS OPCIONALES:\n");
+        if (chkAudifonos.isSelected() || chkManta.isSelected() || chkRevistas.isSelected()) {
+            if (chkAudifonos.isSelected()) resumen.append("- Audifonos\n");
+            if (chkManta.isSelected()) resumen.append("- Manta\n");
+            if (chkRevistas.isSelected()) resumen.append("- Revistas\n");
+        } else {
+            resumen.append("Ninguno\n");
+        }
+        resumen.append("\n");
+        
+        resumen.append("UBICACION:\n");
+        if (rbPrimerPiso.isSelected()) {
+            resumen.append("Primer Piso\n\n");
+        } else if (rbSegundoPiso.isSelected()) {
+            resumen.append("Segundo Piso\n\n");
+        } else {
+            resumen.append("No seleccionado\n\n");
+        }
+        
+        resumen.append("RUTA DEL VIAJE:\n");
+        resumen.append("Origen: ").append(cboOrigen.getSelectedItem()).append("\n");
+        resumen.append("Destino: ").append(cboDestino.getSelectedItem()).append("\n\n");
+        
+        resumen.append("CALIDAD DE SERVICIO:\n");
+        if (listaCalidad.getSelectedValue() != null) {
+            resumen.append(listaCalidad.getSelectedValue()).append("\n");
+        } else {
+            resumen.append("No seleccionado\n");
+        }
+        
+        resumen.append("\n========================================");
+        
+        JOptionPane.showMessageDialog(this, resumen.toString(), 
+            "Resumen de Compra", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void reiniciarFormulario() {
+        txtNombre.setText("");
+        txtDocumento.setText("");
+        txtFechaViaje.setText("DD/MM/AAAA");
+        
+        chkAudifonos.setSelected(false);
+        chkManta.setSelected(false);
+        chkRevistas.setSelected(false);
+        
+        grupoPiso.clearSelection();
+        
+        cboOrigen.setSelectedIndex(0);
+        cboDestino.setSelectedIndex(0);
+        
+        listaCalidad.clearSelection();
+        
+        JOptionPane.showMessageDialog(this, "Formulario reiniciado correctamente", 
+            "Reiniciar", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                CompraPasajes ventana = new CompraPasajes();
+                ventana.setVisible(true);
+            }
+        });
+    }
+}
